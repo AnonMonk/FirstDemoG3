@@ -4,91 +4,22 @@
 //  - Mac (Tiger): QuickTime C-API (WAV wird unterstützt; Loop via PlayHints)
 //  => Eine Quelle, zwei Builds. Keine zusätzlichen Libraries installieren.
 
-#ifdef __APPLE__
-#include <GLUT/glut.h>     // Apple GLUT Framework (Tiger)
-#else
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>       // vor GL-Headers (für freeglut & winmm)
-#endif
-#include <GL/freeglut.h>   // FreeGLUT unter Windows
-#endif
-
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
 #include <cmath>
 
-// ======================= Musik: plattformübergreifende Wrapper =======================
-static void music_start(const char* path);
-static void music_task();
-static void music_stop();
+#ifdef __APPLE__
+    #include "system_g3.h"
+#endif
 
 #ifdef _WIN32
-#include <mmsystem.h>
-#pragma comment(lib, "winmm.lib")
-static void music_start(const char* path) {
-    // WAV-Datei im selben Ordner wie EXE; Endlosschleife
-    PlaySoundA(path, NULL, SND_ASYNC | SND_LOOP | SND_FILENAME);
-}
-static void music_task() {
-    // nichts nötig unter Windows
-}
-static void music_stop() {
-    PlaySoundA(NULL, NULL, 0);
-}
+    #include "system_win.h"
 #endif
 
-#ifdef __APPLE__
-#include <Carbon/Carbon.h>
-#include <QuickTime/QuickTime.h>
-static Movie      gMovie = NULL;
-static short      gMovieResRef = 0;
 
-static OSErr posixToFSSpec(const char* path, FSSpec* outSpec) {
-    FSRef ref; OSErr err = FSPathMakeRef((const UInt8*)path, &ref, NULL);
-    if (err != noErr) return err;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    return FSGetCatalogInfo(&ref, kFSCatInfoNone, NULL, NULL, outSpec, NULL);
-#pragma clang diagnostic pop
-}
-static void music_start(const char* path) {
-    OSErr err = noErr; EnterMovies();
-    FSSpec spec; err = posixToFSSpec(path, &spec); if (err != noErr) { fprintf(stderr, "FSSpec %d\n", err); return; }
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    err = OpenMovieFile(&spec, &gMovieResRef, fsRdPerm);
-#pragma clang diagnostic pop
-    if (err != noErr) { fprintf(stderr, "OpenMovieFile %d\n", err); return; }
-    short resID = 0;
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    err = NewMovieFromFile(&gMovie, gMovieResRef, &resID, NULL, newMovieActive, NULL);
-#pragma clang diagnostic pop
-    if (err != noErr || !gMovie) { fprintf(stderr, "NewMovieFromFile %d\n", err); return; }
-    SetMoviePlayHints(gMovie, hintsLoop, hintsLoop); // Loop an
-    StartMovie(gMovie);
-}
-static void music_task() {
-    if (gMovie) MoviesTask(gMovie, 0); // pro Frame pumpen
-}
-static void music_stop() {
-    if (gMovie) { StopMovie(gMovie); DisposeMovie(gMovie); gMovie = NULL; }
-    if (gMovieResRef) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        CloseMovieFile(gMovieResRef);
-#pragma clang diagnostic pop
-        gMovieResRef = 0;
-    }
-    ExitMovies();
-}
-#endif
-
-// ---------------- Fenstergröße ----------------
-static int winW = 640, winH = 480;
+static int ScreenWidth = 640, ScreenHeight = 480;
 
 // --------- Texte & Stroke-Konfiguration ---------
 static const char* introMessage = "My First Demo";
@@ -129,8 +60,8 @@ static double fps = 0.0;
 static double bounceStartTime = 0.0; // merkt sich, wann Bounce beginnt
 
 // ---------- Hilfsfunktionen Pixel <-> NDC ----------
-static inline float px_to_ndc_x(float px) { return (px / (float)winW) * 2.0f - 1.0f; }
-static inline float px_to_ndc_y(float py) { return (py / (float)winH) * 2.0f - 1.0f; }
+static inline float px_to_ndc_x(float px) { return (px / (float)ScreenWidth) * 2.0f - 1.0f; }
+static inline float px_to_ndc_y(float py) { return (py / (float)ScreenHeight) * 2.0f - 1.0f; }
 
 // ---------- Stroke-Metriken ----------
 static int stroke_text_width_units(const char* s) {
@@ -243,8 +174,8 @@ static void demo_quit(int code = 0);
 
 // ---------------- GLUT Callbacks ----------------
 static void reshape(int w, int h) {
-    winW = (w > 0 ? w : 1); winH = (h > 0 ? h : 1);
-    glViewport(0, 0, winW, winH);
+    ScreenWidth = (w > 0 ? w : 1); ScreenHeight = (h > 0 ? h : 1);
+    glViewport(0, 0, ScreenWidth, ScreenHeight);
     glMatrixMode(GL_PROJECTION); glLoadIdentity(); glOrtho(-1, 1, -1, 1, -1, 1);
     glMatrixMode(GL_MODELVIEW);  glLoadIdentity();
 }
@@ -289,8 +220,8 @@ static void display() {
     // FPS oben rechts
     char fpsBuf[32]; std::snprintf(fpsBuf, sizeof(fpsBuf), "FPS: %d", (int)fps);
     int fw_px = bitmap_width_px(fpsBuf, GLUT_BITMAP_9_BY_15);
-    float fps_x = px_to_ndc_x((float)winW - (float)fw_px - 5.f);
-    float fps_y = px_to_ndc_y((float)winH - 20.f);
+    float fps_x = px_to_ndc_x((float)ScreenWidth - (float)fw_px - 5.f);
+    float fps_y = px_to_ndc_y((float)ScreenHeight - 20.f);
     glColor3f(0.f, 1.f, 0.f);
     draw_bitmap_ndc(fps_x, fps_y, fpsBuf, GLUT_BITMAP_9_BY_15);
 
