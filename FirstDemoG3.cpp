@@ -26,7 +26,7 @@ static const char* introMessage = "My First Demo";
 static const char* creditMessage = "from Anon Monk";
 static const char* mainMessage = "Happy Birthday Corvus";
 
-static float        fontHeightNDC = 0.10f;   // 0.10 .. 1.00
+static float        fontHeightNDC = 0.10f;   // 0.10-1.00 fontHeight
 static const float  STROKE_EM_UNITS = 119.0f;  // GLUT-Stroke „Zeilenhöhe“
 
 // -------------- Phasen ---------------
@@ -46,7 +46,7 @@ static float y_ndc = -1.1f;  // Baseline Y (startet unter Bild)
 
 // Bewegung
 static float  vx = 0.008f;  // DVD-Tempo X
-static float  vy = 0.006f;  // DVD-Tempo Y
+static float  vy = 0.008f;  // DVD-Tempo Y
 static float  riseSpeed = 0.020f;
 static float  pauseTime = 0.8f;
 static double reachTime = 0.0;
