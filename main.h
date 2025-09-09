@@ -2,7 +2,6 @@
 
 
 
-
 extern unsigned int frameCount;
 extern double lastTime;
 extern double fps;
