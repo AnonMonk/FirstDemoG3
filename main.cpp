@@ -19,29 +19,6 @@ void update() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // --------- Texte & Stroke-Konfiguration ---------
 static const char* introMessage = "My First Demo";
 static const char* creditMessage = "from Anon Monk";
@@ -72,7 +49,6 @@ static float  riseSpeed = 0.020f;
 static float  pauseTime = 0.8f;
 static double reachTime = 0.0;
 
-// ---------------- FPS ----------------
 
 // ---------------- Bounce-Timer ----------------
 static double bounceStartTime = 0.0; // merkt sich, wann Bounce beginnt
@@ -190,7 +166,6 @@ static void draw_bitmap_ndc(float x_left_ndc, float y_base_ndc, const char* s, v
 // Vorwärtsdeklaration
 static void demo_quit(int code = 0);
 
-// ---------------- GLUT Callbacks ----------------
 
 
 void display() {
@@ -246,7 +221,6 @@ static void demo_quit(int code) {
     music_stop();
     std::exit(code);
 }
-
 
 
 

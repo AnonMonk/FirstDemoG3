@@ -5,9 +5,7 @@
 
 
 
-
 #ifdef _WIN32
-
 
 
 void music_start(const char* path) {
@@ -70,7 +68,6 @@ void init_system() {
 }
 
 #endif //  _WIN32
-
 
 
 
