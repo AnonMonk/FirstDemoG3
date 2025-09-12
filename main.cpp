@@ -10,12 +10,7 @@ double fps = 0.0;
 
 void update() {
 
-
-
-
 }
-
-
 
 
 
