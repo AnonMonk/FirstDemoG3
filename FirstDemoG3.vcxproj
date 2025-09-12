@@ -123,11 +123,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Effect_Ball.cpp" />
     <ClCompile Include="FirstDemoG3.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="system.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Effect_Ball.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="system.h" />
   </ItemGroup>

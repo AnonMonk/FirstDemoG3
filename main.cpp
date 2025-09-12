@@ -2,6 +2,7 @@
 #include <cstdio>
 #include "main.h"
 #include "system.h"
+#include "Effect_Ball.h"
 
 unsigned int frameCount = 0;
 double lastTime = 0.0;
@@ -12,6 +13,8 @@ void update() {
 
 }
 
+
+static Effect_Ball* gBall = nullptr;// Ball-Effekt-Instanz
 
 
 // --------- Texte & Stroke-Konfiguration ---------
@@ -27,6 +30,7 @@ enum Phase {
     PHASE_INTRO_RISE,   // My First Demo
     PHASE_INTRO_PAUSE,
     PHASE_CREDIT,       // from Anon Monk
+    PHASE_BALL,         //´Ball-Effekt
     PHASE_RISE,         // Happy Birthday: reinfahren
     PHASE_PAUSE,
     PHASE_BOUNCE        // Happy Birthday: DVD-Bounce
@@ -43,6 +47,7 @@ static float  vy = 0.008f;  // DVD-Tempo Y
 static float  riseSpeed = 0.020f;
 static float  pauseTime = 0.8f;
 static double reachTime = 0.0;
+static double ballStartTime = 0.0;
 
 
 // ---------------- Bounce-Timer ----------------
@@ -208,6 +213,12 @@ void display() {
     glColor3f(0.f, 1.f, 0.f);
     draw_bitmap_ndc(fps_x, fps_y, fpsBuf, GLUT_BITMAP_9_BY_15);
 
+
+	// Ball-Effekt
+    if (phase == PHASE_BALL && gBall) {
+        gBall->render();
+    }
+
     glutSwapBuffers();
 }
 
@@ -255,9 +266,26 @@ void timer(int) {
     case PHASE_CREDIT:
         if (t - reachTime >= 3.0) {
             y_ndc = -1.1f;              // danach wieder von unten starten
-            phase = PHASE_RISE;
+            phase = PHASE_BALL;
         }
         break;
+
+
+		// Ball-Effekt initialisieren
+    case PHASE_BALL: {
+        if (!gBall) {
+            gBall = new Effect_Ball(ScreenWidth, ScreenHeight);
+            ballStartTime = t;   // Startzeit merken
+        }
+        gBall->update(dt);
+
+        // nach 20 Sekunden zur nächsten Phase
+        if (t - ballStartTime >= 20.0) {
+            phase = PHASE_RISE;
+            y_ndc = -1.1f;   // so wie beim Credit->Rise Übergang
+        }
+        break;
+    }
 
         // Haupttext: Rise → Pause → Bounce
     case PHASE_RISE: {

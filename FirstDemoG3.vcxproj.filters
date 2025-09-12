@@ -24,12 +24,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Effect_Ball.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect_Ball.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
