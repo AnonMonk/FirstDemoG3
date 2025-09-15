@@ -3,22 +3,20 @@
 #include "system.h"
 #include "main.h"
 
-
-
 #ifdef _WIN32
-
 
 void music_start(const char* path) {
     // WAV-Datei im selben Ordner wie EXE; Endlosschleife
     PlaySoundA(path, NULL, SND_ASYNC | SND_LOOP | SND_FILENAME);
 }
+
 void music_task() {
     // nichts nötig unter Windows
 }
+
 void music_stop() {
     PlaySoundA(NULL, NULL, 0);
 }
-
 
 static void key(unsigned char k, int, int) {
 #ifndef __APPLE__
@@ -27,18 +25,15 @@ static void key(unsigned char k, int, int) {
     if (k == 27) demo_quit();
 }
 
-
 void init_system() {
-    
+
     std::srand((unsigned)std::time(0));
 
     int argc = 0;
     char** argv = NULL;
     glutInit(&argc, argv);
 
-
-
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
     // Bildschirmgröße abfragen und als Fenstergröße setzen
     int screenW = glutGet(GLUT_SCREEN_WIDTH);
@@ -63,17 +58,17 @@ void init_system() {
     glutKeyboardFunc(key);
     glutTimerFunc(16, timer, 0);
 
-    lastTime = glutGet(GLUT_ELAPSED_TIME) * 0.001;
+    // --- Fenster-Schließen-Callback anmelden (freeglut) ---
+#if defined(FREEGLUT) || defined(FREEGLUT_VERSION)
+    glutCloseFunc([]() { demo_quit(); });
+#endif
 
+    lastTime = glutGet(GLUT_ELAPSED_TIME) * 0.001;
 }
 
-#endif //  _WIN32
-
-
+#endif // _WIN32
 
 void demo_quit() {
-
     music_stop();
     std::exit(0);
-
 }
