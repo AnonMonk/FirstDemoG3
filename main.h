@@ -1,13 +1,19 @@
 #pragma once
 
 
-
-extern unsigned int frameCount;
-extern double lastTime;
-extern double fps;
-
 void display();
 void update();
 
 
 void timer(int);
+
+
+enum Phase {
+    PHASE_INTRO_RISE,
+    PHASE_CREDIT,
+    PHASE_PARTICLES,
+    PHASE_PICTURE,
+    PHASE_BALL
+};
+
+extern Phase phase;
