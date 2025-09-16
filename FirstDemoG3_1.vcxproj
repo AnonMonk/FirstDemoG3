@@ -18,6 +18,23 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\01_text.cpp" />
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\02_particles.cpp" />
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\03_picture.cpp" />
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\04_ball.cpp" />
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\helpers.cpp" />
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\main.cpp" />
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\system.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\01_text.h" />
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\02_particles.h" />
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\03_picture.h" />
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\04_ball.h" />
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\helpers.h" />
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\system.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -122,24 +139,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="01_text.cpp" />
-    <ClCompile Include="02_particles.cpp" />
-    <ClCompile Include="03_picture.cpp" />
-    <ClCompile Include="04_ball.cpp" />
-    <ClCompile Include="helpers.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="system.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="01_text.h" />
-    <ClInclude Include="02_particles.h" />
-    <ClInclude Include="03_picture.h" />
-    <ClInclude Include="04_ball.h" />
-    <ClInclude Include="helpers.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="system.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

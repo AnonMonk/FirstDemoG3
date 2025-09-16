@@ -15,48 +15,45 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="system.cpp">
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\01_text.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\02_particles.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="helpers.cpp">
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\03_picture.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="04_ball.cpp">
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\04_ball.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="03_picture.cpp">
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\helpers.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="02_particles.cpp">
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="01_text.cpp">
+    <ClCompile Include="D:\git\FirstDemoG3-master-2\system.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="system.h">
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\01_text.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\02_particles.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="helpers.h">
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\03_picture.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="04_ball.h">
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\04_ball.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="03_picture.h">
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\helpers.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="02_particles.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="01_text.h">
+    <ClInclude Include="D:\git\FirstDemoG3-master-2\system.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
